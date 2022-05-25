@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::post('invoice', [InvoiceController::class, 'invoiceRegister'])->name('invoice.invoiceRegister');
+Route::put('invoice/{id}/customer/{id}', [InvoiceController::class, 'updateCustomer'])->name('invoice.updateCustomer');
+Route::post('invoice/{id}/product', [InvoiceController::class, 'addProduct'])->name('invoice.addProduct');
+Route::delete('invoice/{id}/product', [InvoiceController::class, 'deleteProduct'])->name('invoice.deleteProduct');
