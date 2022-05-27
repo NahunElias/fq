@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,12 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'res' => true,
-            'data' => Product::all(),
-            'msg' => 'Operación exitosa'
-        ], 200);
-
+        return ProductResource::collection(Product::all());
     }
 
     /**
@@ -32,11 +28,8 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        Product::create($request->all());
-        return response()->json([
-            'res' => true,
-            'msg' => 'Producto agregado exitosamente'
-        ], 200);
+        return (new ProductResource(Product::create($request->all())))
+            ->additional(['msg' => 'Producto registrado correctamente']);
     }
 
     /**
@@ -45,9 +38,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Product $product)
     {
-        return Product::where('id', $id)->get();
+        return new ProductResource($product);
     }
 
     /**
@@ -60,10 +53,8 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->all());
-        return response()->json([
-            'res' => true,
-            'msg' => 'Producto actualizado exitosamente'
-        ], 200);
+        return (new ProductResource($product)) 
+        ->additional(['msg' => 'Producto actulizado correctamente']);
     }
 
     /**
@@ -75,9 +66,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return response()->json([
-            'res' => true,
-            'msg' => 'Producto eliminado exitosamente'
-        ], 200);
+        return (new ProductResource($product))
+        ->additional(['msg' => 'Producto eliminado correctamente']);
     }
 }
