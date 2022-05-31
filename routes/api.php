@@ -29,9 +29,12 @@ Route::delete('products/{product}', [ProductController::class, 'destroy'])->name
 
 Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
+Route::apiResource('products', ProductController::class);
+
+//Route::put('products/{product}',[ProductController::class, 'update']);
 
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarsesion']);
-    Route::apiResource('products', ProductController::class);
+   
 
 });

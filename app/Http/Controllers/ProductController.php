@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return ProductResource::collection(Product::all());
+        $productRepository = new ProductRepository();
+        return ProductResource::collection($productRepository->all());
     }
 
     /**
@@ -28,7 +30,12 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        return (new ProductResource(Product::create($request->all())))
+        $productRepository = new ProductRepository();
+        $product = new Product();
+        $product->fill($request->all());
+        $productRepository->create($product);
+
+        return (new ProductResource($product))
             ->additional(['msg' => 'Producto registrado correctamente']);
     }
 
