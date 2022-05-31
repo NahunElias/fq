@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutenticarController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::delete('products/{product}', [ProductController::class, 'destroy'])->name
 Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
 Route::apiResource('products', ProductController::class);
+Route::apiResource('customers', CustomerController::class);
+
 
 //Route::put('products/{product}',[ProductController::class, 'update']);
 

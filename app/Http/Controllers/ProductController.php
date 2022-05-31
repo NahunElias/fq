@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreProductRequest;
-use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Requests\Product\UpdateProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Interactors\Product\RegisterProduct;
+use App\Interactors\Product\UpdateProduct;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
@@ -30,10 +32,9 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        $productRepository = new ProductRepository();
-        $product = new Product();
-        $product->fill($request->all());
-        $productRepository->create($product);
+        $registerProduct = new RegisterProduct();
+
+        $product = $registerProduct->execute($request->all());
 
         return (new ProductResource($product))
             ->additional(['msg' => 'Producto registrado correctamente']);
@@ -59,9 +60,12 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $product->update($request->all());
+        $updateProduct = new UpdateProduct();
+
+        $product = $updateProduct->execute($product->id, $request->all());
+
         return (new ProductResource($product)) 
-        ->additional(['msg' => 'Producto actulizado correctamente']);
+        ->additional(['msg' => 'Producto actualizado correctamente']);
     }
 
     /**
