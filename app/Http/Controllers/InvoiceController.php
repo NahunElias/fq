@@ -30,7 +30,6 @@ class InvoiceController extends Controller
 
     public function updateCustomer(Request $request, Invoice $invoice)
     {
-
         $invoice = Invoice::where('id', $request->id)->update(array('customer_id' => $request->customer_id));
 
         return $this->sendResponse($invoice, 'Invoice update successfully');
@@ -82,8 +81,4 @@ class InvoiceController extends Controller
         return $invoice;
     }
 
-    public function FunctionName(Type $var = null)
-    {
-        # code...
-    }
 }
