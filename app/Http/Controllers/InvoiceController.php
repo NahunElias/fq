@@ -53,4 +53,37 @@ class InvoiceController extends Controller
         
         return $this->sendResponse($invoice, 'Product deleted successfully');
     }
+
+    public function filterDate(Request $request)
+    {
+        $invoices = Invoice::where('expedition_date', '>=', $request->firstDate)
+            ->where('expedition_date', '<=', $request->secondDate)->get();
+        return $invoices;
+    }
+
+    public function filterCustomer(Request $request)
+    {
+        $customer = Customer::where('identification', $request->identification)->first();
+        $invoice = Invoice::where('customer_id', $customer->id)->get();
+        return $invoice;
+    }
+
+    public function filterStatus(Request $request)
+    {
+        $invoice = Invoice::where('status', $request->status)->get();
+
+        return $invoice;
+    }
+
+    public function filterCanceled(Request $request)
+    {
+        $invoice = Invoice::where('canceled', $request->canceled)->get();
+
+        return $invoice;
+    }
+
+    public function FunctionName(Type $var = null)
+    {
+        # code...
+    }
 }

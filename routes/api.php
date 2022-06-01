@@ -31,6 +31,10 @@ Route::delete('products/{product}', [ProductController::class, 'destroy'])->name
 
 Route::post('invoices', [InvoiceController::class, 'invoiceRegister'])->name('invoice.invoiceRegister');
 Route::get('invoices', [InvoiceController::class, 'index'])->name('invoice.index');
+Route::get('invoices/date', [InvoiceController::class, 'filterDate'])->name('invoice.filterDate');
+Route::get('invoices/customer', [InvoiceController::class, 'filterCustomer'])->name('invoice.filterCustomer');
+Route::get('invoices/status', [InvoiceController::class, 'filterStatus'])->name('invoice.filterStatus');
+Route::get('invoices/canceled', [InvoiceController::class, 'filterCanceled'])->name('invoice.filterCanceled');
 
 
 Route::post('registro', [AutenticarController::class, 'registro']);

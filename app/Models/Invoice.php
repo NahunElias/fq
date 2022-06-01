@@ -12,7 +12,11 @@ class Invoice extends Model
     protected $fillable = [
         'code',
         'expedition_date',
-        'customer_id'
+        'status',
+        'canceled',
+        'customer_id',
+        'payment_id',
+        'product_id'
     ];
 
     protected $hidden = [
@@ -38,10 +42,9 @@ class Invoice extends Model
     {
         return $this->hasMany(Payment::class);
     }
-    
+
     public function products() {
         return $this->belongsToMany(Product::class, InvoiceProduct::class)->withPivot(['quantity', 'price']);
     }
-
     
 }
