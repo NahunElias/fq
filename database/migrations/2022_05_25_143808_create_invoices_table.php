@@ -18,12 +18,17 @@ class CreateInvoicesTable extends Migration
 
             $table->string('code');
             $table->date('expedition_date');
+            $table->enum('status', ['credito', 'credito parcial', 'de contado']);
+            $table->boolean('canceled');
 
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('payment_id');
             $table->unsignedBigInteger('product_id');
 
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('payment_id')->references('id')->on('payments');
             $table->foreign('product_id')->references('id')->on('products');
+
 
             $table->timestamps();
         });

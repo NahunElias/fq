@@ -2,23 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Invoice\StoreInvoiceRequest;
+use App\Http\Resources\InvoiceResource;
+use App\Interactors\Invoice\RegisterInvoice;
 use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class InvoiceController extends Controller
 {
-    public function invoiceRegister(Request $request)
+    public function invoiceRegister(StoreInvoiceRequest $request)
     {
+        $registerInvoice = new RegisterInvoice();
 
-        $invoice = Invoice::create($request->all());
+        $invoice = $registerInvoice->execute($request->all());
 
-        if ($request->products) {
-            $invoice->products()->attach($request->products);
-        }
-        $request->customer;
+        return (new InvoiceResource($invoice))
+            ->additional(['msg' => 'Factura creada con exito']);
+    }
 
-        return $this->sendResponse($invoice, 'Invoice saved successfully');
+    public function index()
+    {
+        return Invoice::all()->load('customer', 'products');
     }
 
     public function updateCustomer(Request $request, Invoice $invoice)

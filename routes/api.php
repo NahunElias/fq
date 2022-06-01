@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AutenticarController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,16 +29,16 @@ Route::put('products/{product}', [ProductController::class, 'update'])->name('pr
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('product.destroy'); */
 
 
+Route::post('invoices', [InvoiceController::class, 'invoiceRegister'])->name('invoice.invoiceRegister');
+Route::get('invoices', [InvoiceController::class, 'index'])->name('invoice.index');
+
+
 Route::post('registro', [AutenticarController::class, 'registro']);
 Route::post('acceso', [AutenticarController::class, 'acceso']);
+
 Route::apiResource('products', ProductController::class);
 Route::apiResource('customers', CustomerController::class);
 
-
-//Route::put('products/{product}',[ProductController::class, 'update']);
-
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('cerrarsesion', [AutenticarController::class, 'cerrarsesion']);
-   
-
 });
