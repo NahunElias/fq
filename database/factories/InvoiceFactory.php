@@ -17,8 +17,7 @@ class InvoiceFactory extends Factory
     public function definition()
     {
         $customer = Customer::inRandomOrder()->first();
-        $product = Product::inRandomOrder()->first();
-        $payment = Payment::inRandomOrder()->first();
+      
 
         return [
             'code' => $this->faker->randomNumber(),
@@ -26,8 +25,8 @@ class InvoiceFactory extends Factory
             'status' => $this->faker->randomElement(['credito' ,'credito parcial', 'de contado']),
             'canceled' => $this->faker->boolean(),
             'customer_id' => $customer->id,
-            'product_id' => $product->id,
-            'payment_id' => $payment
+            
+            
         ];
     }
 }

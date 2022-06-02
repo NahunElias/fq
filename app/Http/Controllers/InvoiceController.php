@@ -63,8 +63,7 @@ class InvoiceController extends Controller
     public function filterCustomer(Request $request)
     {
         $customer = Customer::where('identification', $request->identification)->first();
-        $invoice = Invoice::where('customer_id', $customer->id)->get();
-        return $invoice;
+        return $customer->invoices;
     }
 
     public function filterStatus(Request $request)
