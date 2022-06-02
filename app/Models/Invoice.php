@@ -27,6 +27,7 @@ class Invoice extends Model
     public static $rules = [
         'code' => 'required',
         'expedition_date' => 'required',
+        'balance' => 'nullable',
         'customer_id' => 'required'
     ];
 

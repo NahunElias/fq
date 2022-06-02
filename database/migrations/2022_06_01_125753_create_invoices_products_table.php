@@ -17,7 +17,7 @@ class CreateInvoicesProductsTable extends Migration
             $table->id();
 
             $table->float('price');
-            $table->integer('quatity');
+            $table->integer('quantity');
 
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('invoice_id');

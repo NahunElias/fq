@@ -23,10 +23,9 @@ class InvoiceFactory extends Factory
             'code' => $this->faker->randomNumber(),
             'expedition_date' => now(),
             'status' => $this->faker->randomElement(['credito' ,'credito parcial', 'de contado']),
+            'balance' => $this->faker->randomNumber(),
             'canceled' => $this->faker->boolean(),
             'customer_id' => $customer->id,
-            
-            
         ];
     }
 }

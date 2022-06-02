@@ -3,7 +3,9 @@
 namespace App\Interactors\Invoice;
 
 use App\Models\Invoice;
+use App\Models\InvoiceProduct;
 use App\Repositories\InvoiceRepository;
+use Illuminate\Support\Arr;
 
 class RegisterInvoice{
 
@@ -19,6 +21,15 @@ class RegisterInvoice{
         $invoice = new Invoice();
 
         $invoice->fill($invoiceDto);
+
+        $products = $invoiceDto['products'];
+
+        $balance = 0;
+        foreach ($products as $product){
+            $balance += $product['price']*$product['quantity']; 
+        }
+        
+        $invoice->balance = $balance;
         
         $this->invoiceRepository->create($invoice);
 

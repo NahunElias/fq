@@ -11,7 +11,8 @@ class Payment extends Model
 
     protected $fillable = [
         'expedition_date',
-        'value'
+        'value',
+        'invoice_id'
     ];
 
     protected $hidden = [
@@ -19,4 +20,13 @@ class Payment extends Model
         'updated_at'
     ];
 
+    public static $rules = [
+        'expedition_date' => 'required',
+        'value' => 'required',
+        'invoice_id' => 'required'
+    ];
+
+    public function invoice(){
+        return $this->belongsTo(Invoice::class);
+    }
 }

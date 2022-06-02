@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutenticarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +36,9 @@ Route::get('invoices/date', [InvoiceController::class, 'filterDate'])->name('inv
 Route::get('invoices/customer', [InvoiceController::class, 'filterCustomer'])->name('invoice.filterCustomer');
 Route::get('invoices/status', [InvoiceController::class, 'filterStatus'])->name('invoice.filterStatus');
 Route::get('invoices/canceled', [InvoiceController::class, 'filterCanceled'])->name('invoice.filterCanceled');
+
+Route::post('payments', [PaymentController::class, 'registerPayment'])->name('payment.paymentRegister');
+
 
 
 Route::post('registro', [AutenticarController::class, 'registro']);

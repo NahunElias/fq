@@ -20,6 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->date('expedition_date');
             $table->enum('status', ['credito', 'credito parcial', 'de contado']);
             $table->boolean('canceled');
+            $table->double('balance')->nullable();
 
             $table->unsignedBigInteger('customer_id');
 
